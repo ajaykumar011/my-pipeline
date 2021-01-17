@@ -37,7 +37,7 @@ class PipelineStack(core.Stack):
 
     pre_prod_app = WebServiceStage(self, 'Pre-Prod', env={
       'account': PRE_PROD_ACCOUNT,
-      'region': 'ap-south-1',
+      'region': 'ap-south-1',  #This is the same region where pipeline is
     })
     pre_prod_stage = pipeline.add_application_stage(pre_prod_app)
     pre_prod_stage.add_actions(pipelines.ShellScriptAction(
@@ -46,6 +46,8 @@ class PipelineStack(core.Stack):
       additional_artifacts=[source_artifact],
       commands=[
         'pip install -r requirements.txt',
+        'pip install requests',
+        'pip install pytest',
         'pytest integtests',
       ],
       use_outputs={
