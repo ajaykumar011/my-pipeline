@@ -35,27 +35,27 @@ class PipelineStack(core.Stack):
         #build_command='pytest unittests',
         synth_command='cdk synth'))
 
-    # pre_prod_app = WebServiceStage(self, 'Pre-Prod', env={
-    #   'account': PRE_PROD_ACCOUNT,
-    #   'region': 'us-east-1',
-    # })
-    # pre_prod_stage = pipeline.add_application_stage(pre_prod_app)
-    # pre_prod_stage.add_actions(pipelines.ShellScriptAction(
-    #   action_name='Integ',
-    #   run_order=pre_prod_stage.next_sequential_run_order(),
-    #   additional_artifacts=[source_artifact],
-    #   commands=[
-    #     'pip install -r requirements.txt',
-    #     'pytest integtests',
-    #   ],
-    #   use_outputs={
-    #     'SERVICE_URL': pipeline.stack_output(pre_prod_app.url_output)
-    #   }))
+    pre_prod_app = WebServiceStage(self, 'Pre-Prod', env={
+      'account': PRE_PROD_ACCOUNT,
+      'region': 'us-east-1',
+    })
+    pre_prod_stage = pipeline.add_application_stage(pre_prod_app)
+    pre_prod_stage.add_actions(pipelines.ShellScriptAction(
+      action_name='Integ',
+      run_order=pre_prod_stage.next_sequential_run_order(),
+      additional_artifacts=[source_artifact],
+      commands=[
+        'pip install -r requirements.txt',
+        'pytest integtests',
+      ],
+      use_outputs={
+        'SERVICE_URL': pipeline.stack_output(pre_prod_app.url_output)
+      }))
 
-    # pipeline.add_application_stage(WebServiceStage(self, 'Prod', env={
-    #   'account': PROD_ACCOUNT,
-    #   'region': 'us-east-2',
-    # }))
+    pipeline.add_application_stage(WebServiceStage(self, 'Prod', env={
+      'account': PROD_ACCOUNT,
+      'region': 'us-east-2',
+    }))
 
 
 
