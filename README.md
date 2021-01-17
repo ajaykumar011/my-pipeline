@@ -56,21 +56,16 @@ command.
  * `cdk docs`        open CDK documentation
 
 Enjoy!
-CDK Bootstrapping 
+CDK Bootstrapping  for Base, Prod, Stage
 
-#Current Account
-export CDK_NEW_BOOTSTRAP=1 
-npx cdk bootstrap --profile prod --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://304962413949/us-east-1
+#Pipeline Account (base Pipeline account)
+export CDK_NEW_BOOTSTRAP=1  (for windows use set CDK_NEW_BOOTSTRAP=1)
+npx cdk bootstrap --profile pipeline-ac --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://304962413949/ap-south-1
 
-#For windows 
-set CDK_NEW_BOOTSTRAP=1 
-npx cdk bootstrap --profile prod --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://304962413949/us-east-1
+#Pre-Prod  Account [App Account]
+export CDK_NEW_BOOTSTRAP=1  (for windows use set CDK_NEW_BOOTSTRAP=1)
+npx cdk bootstrap --profile pre-prod --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess aws://304962413949/us-east-1
 
-#Trusted Account 
-export CDK_NEW_BOOTSTRAP=1 
-npx cdk bootstrap --profile ajdev --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess --trust 304962413949 aws://143787628822/us-east-2
-
-#windows
-
-set CDK_NEW_BOOTSTRAP=1 
-npx cdk bootstrap --profile ajdev --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess --trust 304962413949 aws://143787628822/us-east-2
+#Prod Trusted Account 
+export CDK_NEW_BOOTSTRAP=1  (for windows use set CDK_NEW_BOOTSTRAP=1)
+npx cdk bootstrap --profile prod --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess --trust 304962413949 aws://143787628822/us-east-2
