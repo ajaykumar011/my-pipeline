@@ -25,6 +25,7 @@ class PipelineStack(core.Stack):
         oauth_token=core.SecretValue.secrets_manager('GITHUB-TOKEN'),
         owner='ajaykumar011',
         repo='my-pipeline',
+        branch='main',
         trigger=cpactions.GitHubTrigger.POLL),
 
       synth_action=pipelines.SimpleSynthAction(
